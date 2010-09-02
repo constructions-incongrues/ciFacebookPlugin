@@ -17,7 +17,7 @@ class CI_Facebook_Filter_Authorize extends sfFilter
         {
             // Find out if a session already exist. If so, check that it is still valid.
             $me = null;
-            $facebook = WK_Facebook_Core::getApiClient();
+            $facebook = CI_Facebook_Core::getApiClient();
             $session = $facebook->getSession();
             if ($session)
             {
