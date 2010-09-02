@@ -1,5 +1,5 @@
 <?php
-class wkCompatFacebookClient
+class ciCompatFacebookClient
 {
     public function get_loggedin_user()
     {
