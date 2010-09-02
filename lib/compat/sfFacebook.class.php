@@ -15,7 +15,7 @@ class sfFacebook
      */
     public static function getSfGuardUserByFacebookSession($create = true, $isActive = true)
     {
-        $uid = WK_Facebook_Core::getApiClient()->getUser();
+        $uid = CI_Facebook_Core::e::getApiClient()->getUser();
         $q = Doctrine_Query::create()
             ->from('sfGuardUser u')
             ->innerJoin('u.Profile p')

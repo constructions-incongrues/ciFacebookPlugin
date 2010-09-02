@@ -7,7 +7,7 @@ class FacebookRestClient
 {
     public function getGraphClient()
     {
-        return WK_Facebook_Core::getApiClient();
+        return CI_Facebook_Core::getApiClient();
     }
 
     public function users_getInfo($uids, $fields)
