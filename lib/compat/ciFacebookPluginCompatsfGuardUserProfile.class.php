@@ -1,5 +1,5 @@
 <?php
-class ciFacebookPluginCompatsfGuardUserProfile extends sfGuardUserProfile
+class ciFacebookPluginCompatsfGuardUserProfile extends PluginsfGuardUserProfile
 {
     public function save(Doctrine_Connection $conn = null)
     {
