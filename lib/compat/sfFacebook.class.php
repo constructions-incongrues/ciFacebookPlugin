@@ -15,7 +15,7 @@ class sfFacebook
      */
     public static function getSfGuardUserByFacebookSession($create = true, $isActive = true)
     {
-        $uid = CI_Facebook_Core::e::getApiClient()->getUser();
+        $uid = CI_Facebook_Core::getApiClient()->getUser();
         $q = Doctrine_Query::create()
             ->from('sfGuardUser u')
             ->innerJoin('u.Profile p')
@@ -66,6 +66,6 @@ class sfFacebook
      */
     public static function getFacebookClient()
     {
-        return new wkCompatFacebookClient();
+        return new ciCompatFacebookClient();
     }
 }
