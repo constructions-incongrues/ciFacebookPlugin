@@ -1,5 +1,7 @@
 <?php
 /**
+ * Filter for authorizing users on Facebook.
+ *
  * @package    Facebook
  * @subpackage Filter
  */
@@ -24,7 +26,15 @@ class CI_Facebook_Filter_Authorize extends sfFilter
                 // Make sure that session is still valid
                 $uid = $facebook->getUser();
                 $me = $facebook->api('/me');
+            }
 
+            // Session either does not exist or is invalid. Let's redirect user to login url.
+            if (!$me)
+            {
+                $this->getContext()->getController()->redirect($facebook->getLoginUrl());
+            }
+            else
+            {
                 // Search for corresponding player in database
                 $model_alias = $this->getParameter('model_alias', 'sfGuardUserProfile');
                 $model_uid_field = $this->getParameter('model_uid_field', 'facebook_uid');
@@ -37,12 +47,15 @@ class CI_Facebook_Filter_Authorize extends sfFilter
                     $user->$model_uid_field = $uid;
                     $user->save();
                 }
-            }
 
-            // Session either does not exist or is invalid. Let's redirect user to login url.
-            if (!$me)
-            {
-                $this->getContext()->getController()->redirect($facebook->getLoginUrl());
+                // Store facebook data into session for later reuse
+                $this->getContext()->getUser()->setAttribute('facebook', array('me' => $me));
+
+                // Store system user informations
+                $this->getContext()->getUser()->setAttribute('system', array('id' => $user->id));
+
+                // TODO : optionnaly store social graph
+                // TODO : make system extendable by broadcasting an event
             }
         }
 
