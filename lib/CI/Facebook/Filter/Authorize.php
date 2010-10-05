@@ -46,13 +46,18 @@ class CI_Facebook_Filter_Authorize extends sfFilter
                     $user = new $model_alias();
                     $user->$model_uid_field = $uid;
                     $user->save();
+                    $user_id = $user->id;
+                }
+                else
+                {
+                    $user_id = $user['id'];
                 }
 
                 // Store facebook data into session for later reuse
                 $this->getContext()->getUser()->setAttribute('facebook', array('me' => $me));
 
                 // Store system user informations
-                $this->getContext()->getUser()->setAttribute('system', array('id' => $user->id));
+                $this->getContext()->getUser()->setAttribute('system', array('id' => $user_id));
 
                 // TODO : optionnaly store social graph
                 // TODO : make system extendable by broadcasting an event
