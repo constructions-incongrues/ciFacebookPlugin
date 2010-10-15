@@ -31,7 +31,8 @@ class CI_Facebook_Filter_Authorize extends sfFilter
             // Session either does not exist or is invalid. Let's redirect user to login url.
             if (!$me)
             {
-                $this->getContext()->getController()->redirect($facebook->getLoginUrl());
+               $loginUrl = $facebook->getLoginUrl(array('canvas' => 1, 'fbconnect' => 0));
+               exit("<script type='text/javascript'>top.location.href = '$loginUrl';</script>");
             }
             else
             {
